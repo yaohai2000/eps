@@ -1,0 +1,1 @@
+CREATE TABLE PUBLIC.PUBLIC.nozzle_pay (work_order VARCHAR(22) NOT NULL, nozzle_number VARCHAR(16) NOT NULL, order_status TINYINT NOT NULL, oil_type TINYINT NOT NULL, oil_category TINYINT NOT NULL, price INTEGER NOT NULL, volume_consume DECIMAL(8,2) NOT NULL, PRIMARY KEY (work_order))
