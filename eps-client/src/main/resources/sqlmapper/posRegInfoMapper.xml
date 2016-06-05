@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bhz.eps.dao.PosInfoDao">
+	<insert id="addPos" parameterType="com.bhz.eps.entity.PosRegInfo">
+		INSERT INTO POS_REG_INFO(POS_CODE,PSAM_NUM,POS_STATUS) 
+		values(#{posCode,jdbcType=VARCHAR},#{psamNum,jdbcType=VARCHAR},#{status,jdbcType=TINYINT})
+	</insert>
+	<update id="updatePos" parameterType="com.bhz.eps.entity.PosRegInfo">
+		UPDATE POS_REG_INFO SET PSAM_NUM=#{psamNum,jdbcType=VARCHAR},POS_STATUS=#{status,jdbcType=TINYINT} 
+		WHERE POS_CODE=#{posCode,jdbcType=VARCHAR}
+	</update>
+	<select id="findPos" resultMap="posReg" parameterType="string">
+		SELECT * FROM POS_REG_INFO where POS_CODE=#{posCode}
+	</select>
+	
+	<resultMap type="com.bhz.eps.entity.PosRegInfo" id="posReg">
+		<id property="posCode" column="POS_CODE"/>
+		<result property="psamNum" column="PSAM_NUM"/>
+		<result property="status" column="POS_STATUS"/>
+	</resultMap>
+</mapper>
