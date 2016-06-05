@@ -4,7 +4,9 @@ import com.bhz.eps.pdu.TPDU;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelHandler;
 
+@ChannelHandler.Sharable
 public class POSConnectionHandler extends ChannelHandlerAdapter {
 
 	@Override

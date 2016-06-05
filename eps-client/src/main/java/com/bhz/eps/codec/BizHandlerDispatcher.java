@@ -5,7 +5,9 @@ import com.bhz.eps.pdu.TPDU;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelHandler;
 
+@ChannelHandler.Sharable
 public class BizHandlerDispatcher extends ChannelHandlerAdapter {
 
 	@Override
@@ -40,14 +42,5 @@ public class BizHandlerDispatcher extends ChannelHandlerAdapter {
 				
 		}
 	}
-
-	@Override
-	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		ctx.channel().close();
-		System.out.println("Channel Inactive");
-		return;
-	}
-	
-	
 	
 }
