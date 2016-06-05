@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bhz.eps.dao.NozzleOrderDao">
+	<insert id="addOrder" parameterType="com.bhz.eps.entity.NozzleOrder">
+		INSERT INTO NOZZLE_ORDER(WORK_ORDER,NOZZLE_NUMBER,ORDER_STATUS,OIL_TYPE,OIL_CATEGORY,PRICE,VOLUME_CONSUME) 
+		values(#{workOrder,jdbcType=VARCHAR},#{nozzleNumber,jdbcType=VARCHAR},#{orderStatus,jdbcType=INTEGER}
+				,#{oilType,jdbcType=INTEGER},#{oilCategory,jdbcType=INTEGER},#{price,jdbcType=INTEGER}
+				,#{volumeConsume,jdbcType=DECIMAL})
+	</insert>
+	<select id="getOrder" resultMap="nozzleOrder">
+		SELECT * FROM nozzle_order where work_order='order1'
+	</select>
+	
+	<resultMap type="com.bhz.eps.entity.NozzleOrder" id="nozzleOrder">
+		<id property="workOrder" column="work_order"/>
+		<result property="nozzleNumber" column="NOZZLE_NUMBER"/>
+		<result property="orderStatus" column="ORDER_STATUS"/>
+		<result property="oilType" column="OIL_TYPE"/>
+		<result property="oilCategory" column="OIL_CATEGORY"/>
+		<result property="price" column="PRICE"/>
+		<result property="volumeConsume" column="VOLUME_CONSUME"/>
+	</resultMap>
+</mapper>
