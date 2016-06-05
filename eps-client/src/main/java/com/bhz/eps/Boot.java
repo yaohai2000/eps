@@ -1,22 +1,16 @@
-package com.bhz.eps.service.impl;
+package com.bhz.eps;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bhz.eps.codec.BizHandlerDispatcher;
-import com.bhz.eps.codec.BizMessageDecoder;
 import com.bhz.eps.codec.BizMessageEncoder;
-import com.bhz.eps.codec.TPDUChecker;
 import com.bhz.eps.codec.TPDUDecoder;
 import com.bhz.eps.codec.TPDUEncoder;
-import com.bhz.eps.entity.BizMessage;
-import com.bhz.eps.entity.BizMessageType;
-import com.bhz.eps.service.EPSClientService;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
@@ -26,11 +20,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
-@Service("epsClientService")
-public class EPSClientServiceImpl implements EPSClientService,InitializingBean {
+public class Boot {
+	public final static ApplicationContext appctx = new ClassPathXmlApplicationContext(new String[]{"conf/application-context.xml"});
 	
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void start() throws Exception {
 		EventLoopGroup acceptor = new NioEventLoopGroup();
 		EventLoopGroup worker = new NioEventLoopGroup();
 		ServerBootstrap sb = new ServerBootstrap();
@@ -73,36 +66,9 @@ public class EPSClientServiceImpl implements EPSClientService,InitializingBean {
 			acceptor.shutdownGracefully();
 		}
 	}
-
-	@Override
-	public void onReceiveHeartbeat() {
-		// TODO Auto-generated method stub
-
+	
+	public static void main(String[] args) throws Exception{
+		Boot b = new Boot();
+		b.start();
 	}
-
-	@Override
-	public void onBizMessage(ChannelHandlerContext ctx, BizMessage message) {
-		if(message == null) 
-			return;
-		switch(message.getCmd()){
-			case BizMessageType.CONN:
-				break;
-			case BizMessageType.HEARTBEAT:
-				break;
-			case BizMessageType.FP_INFO:
-				break;
-			case BizMessageType.FP_ORDERLIST:
-				break;
-			case BizMessageType.LOCK_ORDER:
-				break;
-			case BizMessageType.GET_TRANS_DETAIL:
-				break;
-			case BizMessageType.ORDER_PAY_COMPLETE:
-				break;
-			case BizMessageType.UNLOCK_ORDER:
-				break;
-			
-		}
-	}
-
 }

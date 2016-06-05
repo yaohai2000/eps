@@ -22,8 +22,8 @@ public class NozzleOrderServiceTest {
 	public void addOrderTest(){
 		NozzleOrderService nos = ctx.getBean("nozzleOrderService",NozzleOrderService.class);
 		NozzleOrder no = new NozzleOrder();
-		no.setWorkOrder("order2");
-		no.setNozzleNumber("e-15");
+		no.setWorkOrder("order1");
+		no.setNozzleNumber("e-14");
 		no.setOilType(1);
 		no.setOilCategory(10);
 		no.setPrice(569);
