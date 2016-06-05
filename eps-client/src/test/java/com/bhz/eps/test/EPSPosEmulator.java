@@ -60,7 +60,9 @@ class EPSClientHandler extends SimpleChannelInboundHandler<ByteBuf>{
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		System.out.println(msg.toString(CharsetUtil.UTF_8));
+		byte[] result = new byte[msg.readableBytes()];
+		msg.readBytes(result);
+		System.out.println("Server back message: " + Converts.bytesToHexString(result));
 		ctx.channel().close();
 	}
 

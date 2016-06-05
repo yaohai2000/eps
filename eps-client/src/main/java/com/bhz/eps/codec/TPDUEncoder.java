@@ -13,7 +13,7 @@ public class TPDUEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
     	System.out.println(this.getClass().getName());
-    	String strMsg = (String)msg;
-    	out.writeBytes(strMsg.getBytes());
+    	byte[] result = (byte[])msg;
+    	out.writeBytes(result);
     }
 }

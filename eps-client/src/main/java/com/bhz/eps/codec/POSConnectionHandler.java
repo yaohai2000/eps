@@ -1,6 +1,10 @@
 package com.bhz.eps.codec;
 
+import com.bhz.eps.Boot;
+import com.bhz.eps.entity.PosRegInfo;
 import com.bhz.eps.pdu.TPDU;
+import com.bhz.eps.service.PosRegService;
+import com.bhz.eps.util.Converts;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -19,7 +23,18 @@ public class POSConnectionHandler extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		System.out.println(this.getClass().getName());
 		TPDU pdu = (TPDU)msg;
-		ctx.writeAndFlush(new String(pdu.getBody().getData().getContent()));
+		byte[] cnt = pdu.getBody().getData().getContent();
+		byte[] posCodeArr = new byte[10];
+		System.arraycopy(cnt, 0, posCodeArr, 0, posCodeArr.length);
+		byte[] psamCodeArr = new byte[10];
+		System.arraycopy(cnt, 10, psamCodeArr, 0, psamCodeArr.length);
+		PosRegInfo pos = new PosRegInfo();
+		pos.setPosCode(new String(posCodeArr));
+		pos.setPsamNum(Converts.bcd2Str(psamCodeArr));
+		pos.setStatus(1);
+		PosRegService pss = Boot.appctx.getBean("posRegService",PosRegService.class);
+		pss.regist(pos);
+		ctx.writeAndFlush(pdu.getBody().getData().getContent());
 	}
 
 }
