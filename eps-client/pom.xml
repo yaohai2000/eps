@@ -16,7 +16,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${springframework.version}</version>
-			<mybatis.version>3.3.0</mybatis.version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
